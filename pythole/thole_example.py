@@ -111,16 +111,10 @@ warshel_dipoles = (alphas_3a / warshel_eps * external_efield_3a).reshape(*coords
 
 #  The molecular polarizability only really makes sense as a response to
 #  homogeneous fields
-
-# Applequist
-
-# Thole
-
-# Warshel
+# TODO: Check if the warshell expression makes sense
 warshel_molecular_alpha = np.sum(alphas, -1).reshape(-1, 1, 1) * np.expand_dims(
     np.eye(3), 0
 )
-breakpoint()
 
 for j, (
     conf_coords,
