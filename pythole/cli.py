@@ -5,5 +5,5 @@ app = Typer()
 
 
 @app.command()
-def _main():
+def _main() -> None:
     pass
