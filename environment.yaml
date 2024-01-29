@@ -35,12 +35,12 @@ dependencies:
   #- sphinx-gallery  # sphinx plugin
 
   # # numerical
-  # - numpy  # multidimensional array support
+  - numpy  # multidimensional array support
+  - h5py  # HDF5 backend
   # - pandas  # csv support
 
   # # data
   # - pyarrow  # Parquet backend
-  # - h5py  # HDF5 backend
   # - zarr  # Zarr backend
 
   # # scientific / math
