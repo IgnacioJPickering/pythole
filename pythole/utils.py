@@ -124,12 +124,12 @@ def check_shapes_and_filter_dummy_entries(
 def znums_from_alphas(alphas: NDArray[np.float64]) -> NDArray[np.int64]:
     r"""Recover atomic numbers from the polarizabilities"""
     factor = 0.14818471
-    znums_h = np.where(np.abs(alphas - (factor * 4.50711)) < 1e-10, 1, 0).astype(
+    znums_h: NDArray[np.int64] = np.where(np.abs(alphas - (factor * 4.50711)) < 1e-10, 1, 0).astype(
         np.int64
     )
-    znums_c = np.where(np.abs(alphas - (factor * 11.3)) < 1e-10, 6, 0).astype(np.int64)
-    znums_n = np.where(np.abs(alphas - (factor * 7.4)) < 1e-10, 7, 0).astype(np.int64)
-    znums_o = np.where(np.abs(alphas - (factor * 5.3)) < 1e-10, 8, 0).astype(np.int64)
+    znums_c: NDArray[np.int64] = np.where(np.abs(alphas - (factor * 11.3)) < 1e-10, 6, 0).astype(np.int64)
+    znums_n: NDArray[np.int64] = np.where(np.abs(alphas - (factor * 7.4)) < 1e-10, 7, 0).astype(np.int64)
+    znums_o: NDArray[np.int64] = np.where(np.abs(alphas - (factor * 5.3)) < 1e-10, 8, 0).astype(np.int64)
     total = (
         (znums_h != 0).astype(np.int64)
         + (znums_c != 0).astype(np.int64)
