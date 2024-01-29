@@ -1,25 +1,6 @@
-from pathlib import Path
 import numpy as np
 
-from dipole_utils import (
-    znums_from_alphas,
-    check_shapes_and_filter_dummy_entries,
-    repeat_invert_and_reshape_alphas_to_3Ax3A,
-    repeat_and_reshape_alphas_to_3A,
-    reshape_field_to_3A,
-)
-from dipole_io import (
-    write_dipole_file,
-    write_efield_file,
-    write_xyz_file,
-)
-from dipoles import (
-    DipoleKind,
-    EfieldKind,
-    TholeDampingArgs,
-    calc_pair_dipole_field_matrix,
-    calc_dipoles,
-)
+from dipoles import calc_pair_dipole_field_matrix
 
 d = 0.3
 coords = np.array([[[0.0, 0, 0], [d, 0, 0]]])
@@ -66,4 +47,3 @@ array = np.array(
 print(calc_pair_dipole_field_matrix(coords))
 dipole_tensor_expect = prefactor * array
 print(dipole_tensor_expect)
-breakpoint()

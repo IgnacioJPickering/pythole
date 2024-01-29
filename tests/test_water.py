@@ -1,26 +1,6 @@
-import math
-from pathlib import Path
 import numpy as np
 
-from dipole_utils import (
-    znums_from_alphas,
-    check_shapes_and_filter_dummy_entries,
-    repeat_invert_and_reshape_alphas_to_3Ax3A,
-    repeat_and_reshape_alphas_to_3A,
-    reshape_field_to_3A,
-)
-from dipole_io import (
-    write_dipole_file,
-    write_efield_file,
-    write_xyz_file,
-)
-from dipoles import (
-    DipoleKind,
-    EfieldKind,
-    TholeDampingArgs,
-    calc_pair_dipole_field_matrix,
-    calc_dipoles,
-)
+from dipoles import calc_pair_dipole_field_matrix
 
 # Triatomic (water)
 dx = 0.3
@@ -149,4 +129,3 @@ diff = water_dipole_field - water_dipole_field_expect
 # Seems that these two are exactly equal
 diff[np.abs(diff) < 1e-10] = 0
 assert (diff == 0).all()
-breakpoint()
