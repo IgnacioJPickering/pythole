@@ -110,7 +110,7 @@ def calc_pair_dipole_field_matrix(
 
         # Zero self distances to avoid NaN when multiplying 0 * infty
         pair_dist[self_idxs[0], self_idxs[1], self_idxs[2]] = 0.0
-        scaled_pair_cbdist = pair_alpha_factors * pair_dist ** 3
+        scaled_pair_cbdist = pair_alpha_factors * pair_dist**3
         exp_factor = np.exp(-damp_factor * scaled_pair_cbdist)
         pow3_factor = 1 - exp_factor
         pow5_factor = 1 - (1 + damp_factor * scaled_pair_cbdist) * exp_factor

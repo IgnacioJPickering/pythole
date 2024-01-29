@@ -160,5 +160,17 @@ for j, (
     write_dipole_file(dir_, conf_coords, conf_warshel, DipoleKind.WARSHEL)
     write_efield_file(dir_, conf_coords, conf_external_efield, EfieldKind.EXTERNAL)
     write_atomic_alphas_file(dir_, conf_coords, conf_alphas)
-    write_molecular_alpha_file(dir_, conf_coords, conf_thole_evectors, conf_thole_evalues, MolecularAlphaKind.THOLE)
-    write_molecular_alpha_file(dir_, conf_coords, conf_apple_evectors, conf_apple_evalues, MolecularAlphaKind.APPLEQUIST)
+    write_molecular_alpha_file(
+        dir_,
+        conf_coords,
+        conf_thole_evectors,
+        conf_thole_evalues,
+        MolecularAlphaKind.THOLE,
+    )
+    write_molecular_alpha_file(
+        dir_,
+        conf_coords,
+        conf_apple_evectors,
+        conf_apple_evalues,
+        MolecularAlphaKind.APPLEQUIST,
+    )

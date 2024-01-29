@@ -22,7 +22,9 @@ def write_molecular_alpha_file(
     #  The start of the eigenvectors is taken to be the center of geometry of the
     #  molecule
     cog = np.mean(coords, 0)  # center of geometry
-    with open(dir_ / f"molecular-alpha.{kind.value}.csv", mode="wt", encoding="utf-8") as f:
+    with open(
+        dir_ / f"molecular-alpha.{kind.value}.csv", mode="wt", encoding="utf-8"
+    ) as f:
         f.write("start_x,start_y,start_z,end_x,end_y,end_z\n")
         # Column molecular_alpha[k, :, j] has the eigenvector j, of
         # conformation k so since we want to iterate over the columns, we

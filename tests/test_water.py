@@ -97,33 +97,45 @@ hh_outer_rr = np.array(
 # Seems like all the elements of the outer_rr matrix match
 
 # Dipole tensor field arrays
-oh1_array = np.array(
-    [
+oh1_array = (
+    np.array(
         [
-            [oh1x**2 - 1 / 3 * oh1d**2, oh1x * oh1y, oh1x * oh1z],
-            [oh1x * oh1y, oh1y**2 - 1 / 3 * oh1d**2, oh1z * oh1y],
-            [oh1x * oh1z, oh1z * oh1y, oh1z**2 - 1 / 3 * oh1d**2],
+            [
+                [oh1x**2 - 1 / 3 * oh1d**2, oh1x * oh1y, oh1x * oh1z],
+                [oh1x * oh1y, oh1y**2 - 1 / 3 * oh1d**2, oh1z * oh1y],
+                [oh1x * oh1z, oh1z * oh1y, oh1z**2 - 1 / 3 * oh1d**2],
+            ]
         ]
-    ]
-).reshape(1, 1, 1, 3, 3) * -3 / (oh1d**5)
-oh2_array = np.array(
-    [
+    ).reshape(1, 1, 1, 3, 3)
+    * -3
+    / (oh1d**5)
+)
+oh2_array = (
+    np.array(
         [
-            [oh2x**2 - 1 / 3 * oh2d**2, oh2x * oh2y, oh2x * oh2z],
-            [oh2x * oh2y, oh2y**2 - 1 / 3 * oh2d**2, oh2z * oh2y],
-            [oh2x * oh2z, oh2z * oh2y, oh2z**2 - 1 / 3 * oh2d**2],
+            [
+                [oh2x**2 - 1 / 3 * oh2d**2, oh2x * oh2y, oh2x * oh2z],
+                [oh2x * oh2y, oh2y**2 - 1 / 3 * oh2d**2, oh2z * oh2y],
+                [oh2x * oh2z, oh2z * oh2y, oh2z**2 - 1 / 3 * oh2d**2],
+            ]
         ]
-    ]
-).reshape(1, 1, 1, 3, 3) * -3 / (oh2d**5)
-hh_array = np.array(
-    [
+    ).reshape(1, 1, 1, 3, 3)
+    * -3
+    / (oh2d**5)
+)
+hh_array = (
+    np.array(
         [
-            [hhx**2 - 1 / 3 * hhd**2, hhx * hhy, hhx * hhz],
-            [hhx * hhy, hhy**2 - 1 / 3 * hhd**2, hhz * hhy],
-            [hhx * hhz, hhz * hhy, hhz**2 - 1 / 3 * hhd**2],
+            [
+                [hhx**2 - 1 / 3 * hhd**2, hhx * hhy, hhx * hhz],
+                [hhx * hhy, hhy**2 - 1 / 3 * hhd**2, hhz * hhy],
+                [hhx * hhz, hhz * hhy, hhz**2 - 1 / 3 * hhd**2],
+            ]
         ]
-    ]
-).reshape(1, 1, 1, 3, 3) * -3 / (hhd**5)
+    ).reshape(1, 1, 1, 3, 3)
+    * -3
+    / (hhd**5)
+)
 
 
 hyperrow_1 = np.concatenate((zeros, oh1_array, oh2_array), axis=1)
