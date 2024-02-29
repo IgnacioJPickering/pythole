@@ -53,8 +53,8 @@ coords = conformations["coordinates"][:]
 alphas = conformations["polariz_free"][:]
 external_efield = conformations["e_field"][:]
 
-homo_efield: tp.Optional[HomoEfield] = HomoEfield(x=0.05, y=0.05, z=0.05)
-# homo_efield = None
+# homo_efield: tp.Optional[HomoEfield] = HomoEfield(x=0.05, y=0.05, z=0.05)
+homo_efield = None
 
 coords, alphas, external_efield = check_shapes_and_filter_dummy_entries(
     coords, alphas, external_efield
@@ -90,7 +90,7 @@ apple_evectors = apple_molecular_alpha_diag.eigenvectors  # evectors are in colu
 apple_dipoles = calc_dipoles(apple_eff_alpha_matrix_3a3a, external_efield_3a)
 
 # Thole
-args = TholeDampingArgs(alphas=alphas, damp_factor=1.0)
+args = TholeDampingArgs(alphas=alphas, damp_factor=0.3)
 thole_pair_matrix = calc_pair_dipole_field_matrix(coords, thole_damping_args=args)
 thole_pair_matrix_3a3a = reshape_dipole_field_to_3a3a(thole_pair_matrix)
 # Effective alpha

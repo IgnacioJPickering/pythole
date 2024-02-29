@@ -30,6 +30,8 @@ def write_molecular_alpha_file(
         # conformation k so since we want to iterate over the columns, we
         # transpose the array
         for a in molecular_alpha.T:
+            #  Displace to center of geometry
+            a += cog
             f.write(f"{cog[0]},{cog[1]},{cog[2]},{a[0]},{a[1]},{a[2]}\n")
 
 
