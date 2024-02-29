@@ -9,6 +9,7 @@ with a given per-point polarizability using:
   permitivity). (This was probably first proposed by Warshel and Levitt, and is
   the method used in Santi's paper).
 """
+
 import typing as tp
 import shutil
 
@@ -40,6 +41,7 @@ from pythole.dipoles import (
     TholeDampingArgs,
     calc_pair_dipole_field_matrix,
     calc_dipoles,
+    calc_energy,
 )
 from pythole.databases import _IN_DATA_DIR, _OUT_DATA_DIR
 
@@ -54,7 +56,7 @@ alphas = conformations["polariz_free"][:]
 external_efield = conformations["e_field"][:]
 
 # homo_efield: tp.Optional[HomoEfield] = HomoEfield(x=0.05, y=0.05, z=0.05)
-homo_efield = None
+homo_efield: tp.Optional[HomoEfield] = None
 
 coords, alphas, external_efield = check_shapes_and_filter_dummy_entries(
     coords, alphas, external_efield
@@ -88,6 +90,7 @@ apple_evalues = apple_molecular_alpha_diag.eigenvalues
 apple_evectors = apple_molecular_alpha_diag.eigenvectors  # evectors are in columns
 # Dipoles
 apple_dipoles = calc_dipoles(apple_eff_alpha_matrix_3a3a, external_efield_3a)
+apple_energy = calc_energy(apple_eff_alpha_matrix_3a3a, external_efield_3a)
 
 # Thole
 args = TholeDampingArgs(alphas=alphas, damp_factor=0.3)
@@ -104,10 +107,12 @@ thole_evalues = thole_molecular_alpha_diag.eigenvalues
 thole_evectors = thole_molecular_alpha_diag.eigenvectors
 # Dipoles
 thole_dipoles = calc_dipoles(thole_eff_alpha_matrix_3a3a, external_efield_3a)
+thole_energy = calc_energy(thole_eff_alpha_matrix_3a3a, external_efield_3a)
 
 # Warshel (this is just a constant 1 / eps matrix)
 warshel_eps = 1.0
 warshel_dipoles = (alphas_3a / warshel_eps * external_efield_3a).reshape(*coords.shape)
+warshel_energy = -0.5 * (alphas_3a / warshel_eps * external_efield_3a * external_efield_3a).sum(-1)
 
 #  The molecular polarizability only really makes sense as a response to
 #  homogeneous fields

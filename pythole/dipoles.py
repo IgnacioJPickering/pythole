@@ -128,3 +128,15 @@ def calc_dipoles(
         eff_alpha_matrix,
         np.expand_dims(external_efield, -1),
     ).reshape(external_efield.shape[0], -1, 3)
+
+
+def calc_energy(
+    eff_alpha_matrix: NDArray[np.float64], external_efield: NDArray[np.float64]
+) -> NDArray[np.float64]:
+    # .reshape(external_efield.shape[0], -1, 3)
+
+    dipoles = np.matmul(
+        eff_alpha_matrix,
+        np.expand_dims(external_efield, -1),
+    ).reshape(-1, external_efield.shape[1])
+    return -0.5 * (dipoles * external_efield).sum(axis=-1)
