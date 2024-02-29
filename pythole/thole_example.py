@@ -112,7 +112,9 @@ thole_energy = calc_energy(thole_eff_alpha_matrix_3a3a, external_efield_3a)
 # Warshel (this is just a constant 1 / eps matrix)
 warshel_eps = 1.0
 warshel_dipoles = (alphas_3a / warshel_eps * external_efield_3a).reshape(*coords.shape)
-warshel_energy = -0.5 * (alphas_3a / warshel_eps * external_efield_3a * external_efield_3a).sum(-1)
+warshel_energy = -0.5 * (
+    alphas_3a / warshel_eps * external_efield_3a * external_efield_3a
+).sum(-1)
 
 #  The molecular polarizability only really makes sense as a response to
 #  homogeneous fields
