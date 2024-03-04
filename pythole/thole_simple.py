@@ -44,14 +44,20 @@ def thole_energy(
 ) -> NDArray[np.float64]:
 
     # Comment following lines if there are no dummy entries
-    coords, alphas, external_efield = check_shapes_and_filter_dummy_entries(coords, alphas, external_efield)
+    coords, alphas, external_efield = check_shapes_and_filter_dummy_entries(
+        coords, alphas, external_efield
+    )
 
-    thole_pair_matrix = calc_pair_dipole_field_matrix(coords=coords, alphas=alphas, damp_factor=damp_factor)
+    thole_pair_matrix = calc_pair_dipole_field_matrix(
+        coords=coords, alphas=alphas, damp_factor=damp_factor
+    )
     thole_pair_matrix_3a3a = reshape_dipole_field_to_3a3a(thole_pair_matrix)
 
     inv_alphas_3a3a = repeat_invert_and_reshape_atomic_alphas_to_3a3a(alphas)
     eff_alpha_matrix_3a3a = np.linalg.inv(thole_pair_matrix_3a3a + inv_alphas_3a3a)
-    external_efield_3a = external_efield.reshape(external_efield.shape[0], 3 * external_efield.shape[1])
+    external_efield_3a = external_efield.reshape(
+        external_efield.shape[0], 3 * external_efield.shape[1]
+    )
 
     dipoles_3a = np.matmul(
         eff_alpha_matrix_3a3a,
@@ -163,8 +169,7 @@ def calc_pair_dipole_field_matrix(
     # Calculate the thole damping factors
     # NOTE: self distances are infinite
     pair_alpha_factors = (
-        alphas.reshape(conf_num, 1, atoms_num)
-        * alphas.reshape(conf_num, atoms_num, 1)
+        alphas.reshape(conf_num, 1, atoms_num) * alphas.reshape(conf_num, atoms_num, 1)
     ) ** (-1 / 2)
 
     # Sanity checks
