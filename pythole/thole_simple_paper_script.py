@@ -7,6 +7,10 @@ import numpy as np
 from numpy.typing import NDArray
 
 
+ANGSTROM_TO_BOHR = 1.8897261258369282
+HARTREE_TO_KCALPERMOL = 27.211386024367243 * 1.6021766208e-19 * 6.022140857e23 / 4184
+
+
 def check_shapes_and_filter_dummy_entries(
     coords: NDArray[np.float64],
     alphas: NDArray[np.float64],
@@ -195,4 +199,13 @@ if __name__ == "__main__":
         coords = conformations["coordinates"][:]
         alphas = conformations["polariz_free"][:]
         external_efield = conformations["e_field"][:]
+
+        # Convert to Atomic Units
+        coords = coords * ANGSTROM_TO_BOHR
+        alphas = alphas * ANGSTROM_TO_BOHR**3
+        external_efield = external_efield / ANGSTROM_TO_BOHR**2
+
         energy = thole_energy(coords, alphas, external_efield, damp_factor=0.3)
+
+        # Convert to kcal/mol
+        energy = energy * HARTREE_TO_KCALPERMOL
