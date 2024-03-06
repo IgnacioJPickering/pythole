@@ -1,10 +1,13 @@
 import itertools
-from pathlib import Path
 import scipy.stats
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn
 
+from pythole.databases import _OUT_DATA_DIR
+
+_PREDICTIONS = _OUT_DATA_DIR / "predictions"
+_IMGS = _OUT_DATA_DIR / "imgs"
 alpha_kinds = ("atomtype", "free", "mbis")
 embed_kinds = ("cm5", "hir", "mbis")
 
@@ -13,12 +16,12 @@ overall_min = -150
 j = 0
 i = 0
 axes = None
-show = False
+show = True
 fname = ""
 for alpha_kind, embed_kind in itertools.product(alpha_kinds, embed_kinds):
     title = f"Polarizability: {alpha_kind}, Embedding: {embed_kind}"
 
-    for f in sorted(Path("./predictions").rglob(f"*{alpha_kind}.npy")):
+    for f in sorted(_PREDICTIONS.rglob(f"*{alpha_kind}.npy")):
         if f.stem.startswith("embed"):
             continue
         _, _damp, _epsilon, _ = f.stem.split("-")
@@ -30,17 +33,17 @@ for alpha_kind, embed_kind in itertools.product(alpha_kinds, embed_kinds):
                 if show:
                     plt.show()
                 if damp == 0.0:
-                    plt.savefig(f"{fname}-highthole.png")
+                    plt.savefig(_IMGS / f"{fname}-highthole.png")
                 else:
-                    plt.savefig(f"{fname}-lowthole.png")
+                    plt.savefig(_IMGS / f"{fname}-lowthole.png")
             fig, axes = plt.subplots(
                 4,
                 5,
                 sharex=True,
                 sharey=True,
                 layout="compressed",
-                dpi=100,
-                figsize=(17, 9.6),
+                dpi=142,
+                figsize=(13.5, 7.6),
             )
             fig.suptitle(title)
             axes = axes.reshape(-1)
@@ -50,10 +53,10 @@ for alpha_kind, embed_kind in itertools.product(alpha_kinds, embed_kinds):
         correction = np.load(f)
         if (correction == 0).all():
             correction = 0.0
-        pred = correction + np.load(f"./predictions/embed-{embed_kind}.npy")
+        pred = correction + np.load(_PREDICTIONS / f"embed-{embed_kind}.npy")
 
         #  Filter outliers
-        target = np.load("./predictions/target.npy")
+        target = np.load(_PREDICTIONS / "target.npy")
         outliers = np.abs(pred - target) > 200
         pred = np.delete(pred, outliers)
         target = np.delete(target, outliers)
@@ -96,4 +99,4 @@ for alpha_kind, embed_kind in itertools.product(alpha_kinds, embed_kinds):
 
 if show:
     plt.show()
-plt.savefig(f"{fname}-highthole.png")
+plt.savefig(_IMGS / f"{fname}-highthole.png")
