@@ -27,7 +27,11 @@ def thole_energy_kcalpermol(
     external_field = external_field_eperang2 / ANGSTROM_TO_BOHR**2
 
     if damp_factor == 0.0:
-        energy = -0.5 * (alphas * (external_field * external_field).sum(-1)).sum(-1) / epsilon
+        energy = (
+            -0.5
+            * (alphas * (external_field * external_field).sum(-1)).sum(-1)
+            / epsilon
+        )
     else:
         conf_num = coords.shape[0]
         atoms_num = coords.shape[1]
@@ -39,11 +43,13 @@ def thole_energy_kcalpermol(
         )  # 66 %
 
         # Note that transposition is necessary here
-        thole_pair_matrix_3a3a = np.transpose(thole_pair_matrix, (0, 1, 3, 2, 4)).reshape(
-            conf_num, atoms_num * 3, atoms_num * 3
-        )
+        thole_pair_matrix_3a3a = np.transpose(
+            thole_pair_matrix, (0, 1, 3, 2, 4)
+        ).reshape(conf_num, atoms_num * 3, atoms_num * 3)
         # Repeat, invert alphas and reshape to 3a3a
-        inv_alphas = np.repeat((1 / alphas), 3, axis=-1).reshape(conf_num, 3 * atoms_num, 1)
+        inv_alphas = np.repeat((1 / alphas), 3, axis=-1).reshape(
+            conf_num, 3 * atoms_num, 1
+        )
         inv_alphas_3a3a = inv_alphas * np.expand_dims(np.eye(3 * atoms_num), 0)
 
         external_field_3a = external_field.reshape(
@@ -162,7 +168,9 @@ if __name__ == "__main__":
     epsilons = (1000, 50, 20, 10, math.inf)
     alpha_kinds = ("atomtype", "free", "mbis")
     grid = list(itertools.product(damps, epsilons, alpha_kinds))
-    for damp, epsilon_str, alpha_kind in tqdm(grid, total=len(grid), disable=disable_tqdm):
+    for damp, epsilon_str, alpha_kind in tqdm(
+        grid, total=len(grid), disable=disable_tqdm
+    ):
         epsilon = epsilon_str / 10
 
         _pred_energies = []
@@ -174,9 +182,7 @@ if __name__ == "__main__":
                 damp_factor=damp,
                 epsilon=epsilon,
             )
-            _pred_energies.append(
-                correction_kcalpermol
-            )
+            _pred_energies.append(correction_kcalpermol)
         pred_energies = np.concatenate(_pred_energies)
         np.save(
             f"./predictions/pred-{damp}-{str(epsilon_str).zfill(4) if epsilon_str != math.inf else str(9999)}-{alpha_kind}.npy",
