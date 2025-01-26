@@ -1,6 +1,6 @@
 import numpy as np
 
-from dipoles import calc_pair_dipole_field_matrix
+from pythole.dipoles import calc_pair_dipole_field_matrix
 
 # Triatomic (water)
 dx = 0.3

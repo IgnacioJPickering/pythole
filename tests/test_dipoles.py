@@ -1,6 +1,6 @@
 import numpy as np
 
-from dipoles import calc_pair_dipole_field_matrix
+from pythole.dipoles import calc_pair_dipole_field_matrix
 
 d = 0.3
 coords = np.array([[[0.0, 0, 0], [d, 0, 0]]])
