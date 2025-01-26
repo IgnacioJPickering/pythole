@@ -69,7 +69,9 @@ if homo_efield is not None:
 
 znums = znums_from_alphas(alphas)
 
-inv_alphas_3a3a: NDArray[np.float64] = repeat_invert_and_reshape_atomic_alphas_to_3a3a(alphas)
+inv_alphas_3a3a: NDArray[np.float64] = repeat_invert_and_reshape_atomic_alphas_to_3a3a(
+    alphas
+)
 external_efield_3a: NDArray[np.float64] = reshape_efield_to_3a(external_efield)
 alphas_3a: NDArray[np.float64] = repeat_and_reshape_atomic_alphas_to_3a(alphas)
 
