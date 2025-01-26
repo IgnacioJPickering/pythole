@@ -40,7 +40,7 @@ def repeat_invert_and_reshape_atomic_alphas_to_3a3a(
 
 # TODO: Make sure that this permutation is actually correct, very important!!
 # I'm 97% sure the transposition is crucial
-def reshape_dipole_field_to_3a3a(matrix: NDArray[tp.Any]) -> NDArray[tp.Any]:
+def reshape_dipole_field_to_3a3a(matrix: NDArray[np.float64]) -> NDArray[np.float64]:
     conf_num = matrix.shape[0]
     atoms_num = matrix.shape[1]
     # The diatomics clearly show no effect in the permutation
@@ -52,8 +52,8 @@ def reshape_dipole_field_to_3a3a(matrix: NDArray[tp.Any]) -> NDArray[tp.Any]:
 
 
 def reduce_eff_alpha_3a3a_to_molecular_alpha_3x3(
-    matrix: NDArray[tp.Any],
-) -> NDArray[tp.Any]:
+    matrix: NDArray[np.float64],
+) -> NDArray[np.float64]:
     conf_num = matrix.shape[0]
     matrix = matrix.reshape(
         conf_num, matrix.shape[-2] // 3, 3, matrix.shape[-1] // 3, 3
