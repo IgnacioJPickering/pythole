@@ -7,13 +7,14 @@ factors: pow3_factor (lambda3) and pow5_factor (lambda5)
 The functions that actually modify the dipole field tensor are the
 derivatives of the potential, not the density or the potential itself.
 """
+
 from numpy.typing import NDArray
 import numpy as np
 
 
 def exp_density(
-    reduced_dist: NDArray[np.float64], a_thole: float
-) -> NDArray[np.float64]:
+    reduced_dist: NDArray[np.floating], a_thole: float
+) -> NDArray[np.floating]:
     r"""
     Function rho1 in Thole's paper
     """
@@ -21,8 +22,8 @@ def exp_density(
 
 
 def exp_density2(
-    reduced_dist: NDArray[np.float64], a_thole: float
-) -> NDArray[np.float64]:
+    reduced_dist: NDArray[np.floating], a_thole: float
+) -> NDArray[np.floating]:
     r"""
     Function rho2 in Thole's paper
     """
@@ -30,8 +31,8 @@ def exp_density2(
 
 
 def exp_density3(
-    reduced_dist: NDArray[np.float64], a_thole: float
-) -> NDArray[np.float64]:
+    reduced_dist: NDArray[np.floating], a_thole: float
+) -> NDArray[np.floating]:
     r"""
     Function rho3 in Thole's paper
     """
@@ -39,8 +40,8 @@ def exp_density3(
 
 
 def conical_density(
-    reduced_dist: NDArray[np.float64], a_thole: float
-) -> NDArray[np.float64]:
+    reduced_dist: NDArray[np.floating], a_thole: float
+) -> NDArray[np.floating]:
     r"""
     Function rho4 in Thole's paper
     """
@@ -48,8 +49,8 @@ def conical_density(
 
 
 def conical_density2(
-    reduced_dist: NDArray[np.float64], a_thole: float
-) -> NDArray[np.float64]:
+    reduced_dist: NDArray[np.floating], a_thole: float
+) -> NDArray[np.floating]:
     r"""
     Function rho5 in Thole's paper
     """
@@ -57,8 +58,8 @@ def conical_density2(
 
 
 def conical_density3(
-    reduced_dist: NDArray[np.float64], a_thole: float
-) -> NDArray[np.float64]:
+    reduced_dist: NDArray[np.floating], a_thole: float
+) -> NDArray[np.floating]:
     r"""
     Function rho6 in Thole's paper
     """
@@ -66,8 +67,8 @@ def conical_density3(
 
 
 def conical_density4(
-    reduced_dist: NDArray[np.float64], a_thole: float
-) -> NDArray[np.float64]:
+    reduced_dist: NDArray[np.floating], a_thole: float
+) -> NDArray[np.floating]:
     r"""
     Function rho7 in Thole's paper
     """

@@ -1,6 +1,6 @@
 import numpy as np
 
-from dipoles import calc_pair_dipole_field_matrix
+from pythole.dipoles import calc_pair_dipole_field_matrix
 
 # Triatomic (water)
 dx = 0.3
@@ -21,7 +21,7 @@ coords = np.expand_dims(
     0,
 )
 
-water_dipole_field = calc_pair_dipole_field_matrix(coords, reshape_to_3Ax3A=True)
+water_dipole_field = calc_pair_dipole_field_matrix(coords)
 oh1_diff = coords[0, 1] - coords[0, 0]
 oh1x = oh1_diff[0]
 oh1y = oh1_diff[1]

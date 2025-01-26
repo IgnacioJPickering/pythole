@@ -29,7 +29,7 @@ packages = ["pythole"]
 
 [tool.black]
     line-length = 88
-    target_version = ["py38"]
+    target_version = ["py311"]
 
 [tool.mypy]
     ignore_missing_imports = true
@@ -38,4 +38,7 @@ packages = ["pythole"]
     disallow_incomplete_defs = true
     disallow_untyped_defs = true
     disallow_any_generics = true
-    python_version = 3.8
+    python_version = 3.11
+
+[tool.pytest.ini_options]
+markers = ["fast"]

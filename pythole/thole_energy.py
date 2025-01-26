@@ -12,15 +12,15 @@ HARTREE_TO_KCALPERMOL = 27.211386024367243 * 1.6021766208e-19 * 6.022140857e23 /
 
 
 def thole_energy_kcalpermol(
-    coords_ang: NDArray[np.float64],
-    alphas_ang3: NDArray[np.float64],
-    external_field_eperang2: NDArray[np.float64],
+    coords_ang: NDArray[np.floating],
+    alphas_ang3: NDArray[np.floating],
+    external_field_eperang2: NDArray[np.floating],
     damp_factor: float,
     epsilon: float,
-) -> NDArray[np.float64]:
+) -> NDArray[np.floating]:
 
     if epsilon is math.inf:
-        return np.array([0.0] * coords_ang.shape[0], dtype=np.float64)
+        return np.array([0.0] * coords_ang.shape[0], dtype=np.floating)
 
     coords = coords_ang * ANGSTROM_TO_BOHR
     alphas = alphas_ang3 * ANGSTROM_TO_BOHR**3
@@ -66,10 +66,10 @@ def thole_energy_kcalpermol(
 # The electric field due to the induced dipoles can be calculated
 # using the dipole field matrix
 def pair_dipole_field_matrix(
-    coords: NDArray[np.float64],
-    alphas: NDArray[np.float64],
+    coords: NDArray[np.floating],
+    alphas: NDArray[np.floating],
     damp_factor: float,
-) -> NDArray[np.float64]:
+) -> NDArray[np.floating]:
     # Input must be shape C x A x 3 (conformations x atoms x 3)
     #  Output is shape C x 3A x 3A if reshape, else C x A x A x 3 x 3
 

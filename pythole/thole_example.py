@@ -10,6 +10,7 @@ with a given per-point polarizability using:
   the method used in Santi's paper).
 """
 
+from numpy.typing import NDArray
 import typing as tp
 import shutil
 
@@ -50,7 +51,7 @@ db = h5py.File(_IN_DATA_DIR / "thole_data.h5")
 formula = "C2H5N1O2"
 conformations = db[formula]
 
-# (Atomic) coordinates, polarizabilites and electric field, all values are float64
+# (Atomic) coordinates, polarizabilites and electric field, all values are floating
 coords = conformations["coordinates"][:]
 alphas = conformations["polariz_free"][:]
 external_efield = conformations["e_field"][:]
@@ -68,9 +69,11 @@ if homo_efield is not None:
 
 znums = znums_from_alphas(alphas)
 
-inv_alphas_3a3a = repeat_invert_and_reshape_atomic_alphas_to_3a3a(alphas)
-external_efield_3a = reshape_efield_to_3a(external_efield)
-alphas_3a = repeat_and_reshape_atomic_alphas_to_3a(alphas)
+inv_alphas_3a3a: NDArray[np.floating] = repeat_invert_and_reshape_atomic_alphas_to_3a3a(
+    alphas
+)
+external_efield_3a: NDArray[np.floating] = reshape_efield_to_3a(external_efield)
+alphas_3a: NDArray[np.floating] = repeat_and_reshape_atomic_alphas_to_3a(alphas)
 
 # The inverse "effective" polarization matrix, B
 # satisfies B_3a3a @ dipole_3a = external_efield_3a,

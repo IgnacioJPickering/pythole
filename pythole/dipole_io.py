@@ -7,9 +7,9 @@ from dipoles import DipoleKind, MolecularAlphaKind, EfieldKind
 
 def write_molecular_alpha_file(
     dir_: Path,
-    coords: NDArray[np.float64],
-    molecular_alpha_evectors: NDArray[np.float64],
-    molecular_alpha_evalues: NDArray[np.float64],
+    coords: NDArray[np.floating],
+    molecular_alpha_evectors: NDArray[np.floating],
+    molecular_alpha_evalues: NDArray[np.floating],
     kind: MolecularAlphaKind,
 ) -> None:
     assert coords.shape[-1] == 3 and coords.ndim == 2
@@ -37,21 +37,21 @@ def write_molecular_alpha_file(
 
 def write_atomic_alphas_file(
     dir_: Path,
-    coords: NDArray[np.float64],
-    alphas: NDArray[np.float64],
+    coords: NDArray[np.floating],
+    alphas: NDArray[np.floating],
 ) -> None:
     assert coords.shape[-1] == 3 and coords.ndim == 2
     assert alphas.shape == coords.shape[:-1]
     with open(dir_ / "atomic-alphas.csv", mode="wt", encoding="utf-8") as f:
         f.write("x,y,z,alpha\n")
         for c, a in zip(coords, alphas):
-            f.write(f"{c[0]},{c[1]},{c[2]},{a}\n")
+            f.write(f"{c[0]},{c[1]},{c[2]},{a}\n")  # type: ignore
 
 
 def write_dipole_file(
     dir_: Path,
-    coords: NDArray[np.float64],
-    dipoles: NDArray[np.float64],
+    coords: NDArray[np.floating],
+    dipoles: NDArray[np.floating],
     kind: DipoleKind,
 ) -> None:
     assert coords.shape[-1] == 3 and coords.ndim == 2
@@ -62,13 +62,13 @@ def write_dipole_file(
         f.write("start_x,start_y,start_z,end_x,end_y,end_z\n")
         for c, d in zip(coords, dipoles):
             d += c
-            f.write(f"{c[0]},{c[1]},{c[2]},{d[0]},{d[1]},{d[2]}\n")
+            f.write(f"{c[0]},{c[1]},{c[2]},{d[0]},{d[1]},{d[2]}\n")  # type: ignore
 
 
 def write_efield_file(
     dir_: Path,
-    coords: NDArray[np.float64],
-    efield: NDArray[np.float64],
+    coords: NDArray[np.floating],
+    efield: NDArray[np.floating],
     kind: EfieldKind,
 ) -> None:
     # Coordinates should be an array of size a x 3
@@ -77,12 +77,12 @@ def write_efield_file(
         f.write("start_x,start_y,start_z,end_x,end_y,end_z\n")
         for c, e in zip(coords, efield):
             e += c
-            f.write(f"{c[0]},{c[1]},{c[2]},{e[0]},{e[1]},{e[2]}\n")
+            f.write(f"{c[0]},{c[1]},{c[2]},{e[0]},{e[1]},{e[2]}\n")  # type: ignore
 
 
 def write_xyz_file(
     dir_: Path,
-    coords: NDArray[np.float64],
+    coords: NDArray[np.floating],
     znums: NDArray[np.int64],
 ) -> None:
     # Coordinates should be an array of size a x 3
@@ -90,4 +90,4 @@ def write_xyz_file(
     with open(dir_ / "structure.xyz", mode="wt", encoding="utf-8") as f:
         f.write(f"{coords.shape[0]}\n\n")
         for c, z in zip(coords, znums):
-            f.write(f"{z} {c[0]} {c[1]} {c[2]}\n")
+            f.write(f"{z} {c[0]} {c[1]} {c[2]}\n")  # type: ignore

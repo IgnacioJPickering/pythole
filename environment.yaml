@@ -1,11 +1,9 @@
 name: pythole
 channels:
-  - https://conda.anaconda.org/nvidia
-  - https://conda.anaconda.org/pytorch
   - https://conda.anaconda.org/conda-forge
 dependencies:
   # general
-  - python >=3.8
+  - python =3.11
   - pip  # python packaging tool
 
   # automatic linters / checkers / tests / CI
@@ -13,8 +11,6 @@ dependencies:
   - black  # code formatter
   - flake8  # pep8 linter
   - autoflake  # remove unused imports / variables
-  #- isort  # imports sorter and grouper
-  #- bandit  # find security issues
 
   # non automatic
   - mypy  # type checker
@@ -26,42 +22,10 @@ dependencies:
   # cli
   - typer  # handy cli library with support for type checking
   - rich  # colorful styles and terminal outputs
-  #- click  # more involved cli library, backend for typer
-  #- shellingham  # autodetect shell for auto completion
 
   # docs
   - sphinx  # documentation framework, uses restructured text (.rst)
-  #- sphinx_rtd_theme  # nice theme for sphinx
-  #- sphinx-gallery  # sphinx plugin
 
   # # numerical
   - numpy  # multidimensional array support
   - h5py  # HDF5 backend
-  # - pandas  # csv support
-
-  # # data
-  # - pyarrow  # Parquet backend
-  # - zarr  # Zarr backend
-
-  # # scientific / math
-  # - plotly  # interactive plotting
-  # - matplotlib  # plotting
-  # - pint  # units
-  # - scipy  # general scientific utils
-  # - sympy  # symbolic mathematical manipulation
-
-  # # DL
-  # - pytorch  # deep learning and cuda accelerated matrix computation
-  # - pytorch_lightning  # pytorch wrapper framework
-  # - wandb  # logging DL runs to cloud
-
-  # # utils
-  # - psutil  # process management
-  # - pydantic  # data validation for BaseModels
-  # - pyyaml  # yaml parser
-  # - tqdm  # progress bars
-  # - lark-parser
-
-  # # web
-  # - requests  # for https requests
-  # - bs4  # beautiful soup 4, web scraping
