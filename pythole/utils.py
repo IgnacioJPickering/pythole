@@ -23,7 +23,9 @@ def repeat_invert_and_reshape_atomic_alphas_to_3a3a(
     assert alphas.ndim == 2
     conf_num = alphas.shape[0]
     atoms_num = alphas.shape[1]
-    inv_alphas: NDArray[np.float64] = np.repeat((1 / alphas), 3, axis=-1).reshape(conf_num, 3 * atoms_num, 1)
+    inv_alphas: NDArray[np.float64] = np.repeat((1 / alphas), 3, axis=-1).reshape(
+        conf_num, 3 * atoms_num, 1
+    )
     inv_alphas = inv_alphas * np.expand_dims(np.eye(3 * atoms_num), 0)
     #  Sanity checks
     if inv_alphas.shape[1] > 2:
