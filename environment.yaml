@@ -3,7 +3,7 @@ channels:
   - https://conda.anaconda.org/conda-forge
 dependencies:
   # general
-  - python >=3.8
+  - python =3.11
   - pip  # python packaging tool
 
   # automatic linters / checkers / tests / CI
