@@ -45,7 +45,7 @@ def write_atomic_alphas_file(
     with open(dir_ / "atomic-alphas.csv", mode="wt", encoding="utf-8") as f:
         f.write("x,y,z,alpha\n")
         for c, a in zip(coords, alphas):
-            f.write(f"{c[0]},{c[1]},{c[2]},{a}\n")
+            f.write(f"{c[0]},{c[1]},{c[2]},{a}\n")  # type: ignore
 
 
 def write_dipole_file(
@@ -62,7 +62,7 @@ def write_dipole_file(
         f.write("start_x,start_y,start_z,end_x,end_y,end_z\n")
         for c, d in zip(coords, dipoles):
             d += c
-            f.write(f"{c[0]},{c[1]},{c[2]},{d[0]},{d[1]},{d[2]}\n")
+            f.write(f"{c[0]},{c[1]},{c[2]},{d[0]},{d[1]},{d[2]}\n")  # type: ignore
 
 
 def write_efield_file(
@@ -77,7 +77,7 @@ def write_efield_file(
         f.write("start_x,start_y,start_z,end_x,end_y,end_z\n")
         for c, e in zip(coords, efield):
             e += c
-            f.write(f"{c[0]},{c[1]},{c[2]},{e[0]},{e[1]},{e[2]}\n")
+            f.write(f"{c[0]},{c[1]},{c[2]},{e[0]},{e[1]},{e[2]}\n")  # type: ignore
 
 
 def write_xyz_file(
@@ -90,4 +90,4 @@ def write_xyz_file(
     with open(dir_ / "structure.xyz", mode="wt", encoding="utf-8") as f:
         f.write(f"{coords.shape[0]}\n\n")
         for c, z in zip(coords, znums):
-            f.write(f"{z} {c[0]} {c[1]} {c[2]}\n")
+            f.write(f"{z} {c[0]} {c[1]} {c[2]}\n")  # type: ignore
