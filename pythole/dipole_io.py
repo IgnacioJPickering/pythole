@@ -7,9 +7,9 @@ from dipoles import DipoleKind, MolecularAlphaKind, EfieldKind
 
 def write_molecular_alpha_file(
     dir_: Path,
-    coords: NDArray[np.float64],
-    molecular_alpha_evectors: NDArray[np.float64],
-    molecular_alpha_evalues: NDArray[np.float64],
+    coords: NDArray[np.floating],
+    molecular_alpha_evectors: NDArray[np.floating],
+    molecular_alpha_evalues: NDArray[np.floating],
     kind: MolecularAlphaKind,
 ) -> None:
     assert coords.shape[-1] == 3 and coords.ndim == 2
@@ -37,8 +37,8 @@ def write_molecular_alpha_file(
 
 def write_atomic_alphas_file(
     dir_: Path,
-    coords: NDArray[np.float64],
-    alphas: NDArray[np.float64],
+    coords: NDArray[np.floating],
+    alphas: NDArray[np.floating],
 ) -> None:
     assert coords.shape[-1] == 3 and coords.ndim == 2
     assert alphas.shape == coords.shape[:-1]
@@ -50,8 +50,8 @@ def write_atomic_alphas_file(
 
 def write_dipole_file(
     dir_: Path,
-    coords: NDArray[np.float64],
-    dipoles: NDArray[np.float64],
+    coords: NDArray[np.floating],
+    dipoles: NDArray[np.floating],
     kind: DipoleKind,
 ) -> None:
     assert coords.shape[-1] == 3 and coords.ndim == 2
@@ -67,8 +67,8 @@ def write_dipole_file(
 
 def write_efield_file(
     dir_: Path,
-    coords: NDArray[np.float64],
-    efield: NDArray[np.float64],
+    coords: NDArray[np.floating],
+    efield: NDArray[np.floating],
     kind: EfieldKind,
 ) -> None:
     # Coordinates should be an array of size a x 3
@@ -82,7 +82,7 @@ def write_efield_file(
 
 def write_xyz_file(
     dir_: Path,
-    coords: NDArray[np.float64],
+    coords: NDArray[np.floating],
     znums: NDArray[np.int64],
 ) -> None:
     # Coordinates should be an array of size a x 3

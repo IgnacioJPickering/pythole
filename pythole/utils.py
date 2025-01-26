@@ -13,8 +13,8 @@ class HomoEfield:
 
 
 def repeat_invert_and_reshape_atomic_alphas_to_3a3a(
-    alphas: NDArray[np.float64],
-) -> NDArray[np.float64]:
+    alphas: NDArray[np.floating],
+) -> NDArray[np.floating]:
     r"""In general atomic polarizability matrices are approximated to be
     isotropic. This creates an array for 1 / alphas of shape 3a x 3a. Each set
     of 3 consecutive values in the diagonal should be equal The first dimension
@@ -23,7 +23,7 @@ def repeat_invert_and_reshape_atomic_alphas_to_3a3a(
     assert alphas.ndim == 2
     conf_num = alphas.shape[0]
     atoms_num = alphas.shape[1]
-    inv_alphas: NDArray[np.float64] = np.repeat((1 / alphas), 3, axis=-1).reshape(
+    inv_alphas: NDArray[np.floating] = np.repeat((1 / alphas), 3, axis=-1).reshape(
         conf_num, 3 * atoms_num, 1
     )
     inv_alphas = inv_alphas * np.expand_dims(np.eye(3 * atoms_num), 0)
@@ -34,13 +34,13 @@ def repeat_invert_and_reshape_atomic_alphas_to_3a3a(
         assert inv_alphas[0, 1, 2] == 0
         assert inv_alphas[0, 2, 1] == 0
         assert inv_alphas[0, 1, 1] == inv_alphas[0, 2, 2]
-    assert inv_alphas.dtype == np.float64
+    assert inv_alphas.dtype == np.floating
     return inv_alphas  # type: ignore
 
 
 # TODO: Make sure that this permutation is actually correct, very important!!
 # I'm 97% sure the transposition is crucial
-def reshape_dipole_field_to_3a3a(matrix: NDArray[np.float64]) -> NDArray[np.float64]:
+def reshape_dipole_field_to_3a3a(matrix: NDArray[np.floating]) -> NDArray[np.floating]:
     conf_num = matrix.shape[0]
     atoms_num = matrix.shape[1]
     # The diatomics clearly show no effect in the permutation
@@ -52,8 +52,8 @@ def reshape_dipole_field_to_3a3a(matrix: NDArray[np.float64]) -> NDArray[np.floa
 
 
 def reduce_eff_alpha_3a3a_to_molecular_alpha_3x3(
-    matrix: NDArray[np.float64],
-) -> NDArray[np.float64]:
+    matrix: NDArray[np.floating],
+) -> NDArray[np.floating]:
     conf_num = matrix.shape[0]
     matrix = matrix.reshape(
         conf_num, matrix.shape[-2] // 3, 3, matrix.shape[-1] // 3, 3
@@ -64,15 +64,15 @@ def reduce_eff_alpha_3a3a_to_molecular_alpha_3x3(
 
 
 def reshape_efield_to_3a(
-    field: NDArray[np.float64],
-) -> NDArray[np.float64]:
+    field: NDArray[np.floating],
+) -> NDArray[np.floating]:
     r"""Reshape electric field into a c x 3a array"""
     return field.reshape(field.shape[0], 3 * field.shape[1])
 
 
 def make_homo_efield(
-    coords: NDArray[np.float64], homo_efield: HomoEfield
-) -> NDArray[np.float64]:
+    coords: NDArray[np.floating], homo_efield: HomoEfield
+) -> NDArray[np.floating]:
     r"""
     Generate a homogeneous electric field over all the atoms
     in a set of coordinates
@@ -81,24 +81,24 @@ def make_homo_efield(
     y = homo_efield.y
     z = homo_efield.z
     return np.repeat(
-        np.repeat(np.array([[[x, y, z]]], dtype=np.float64), coords.shape[0], axis=0),
+        np.repeat(np.array([[[x, y, z]]], dtype=np.floating), coords.shape[0], axis=0),
         coords.shape[1],
         axis=1,
     )
 
 
 def repeat_and_reshape_atomic_alphas_to_3a(
-    alphas: NDArray[np.float64],
-) -> NDArray[np.float64]:
+    alphas: NDArray[np.floating],
+) -> NDArray[np.floating]:
     r"""reshape field into a c x 3a array"""
     return np.repeat(alphas, 3, axis=-1)
 
 
 def check_shapes_and_filter_dummy_entries(
-    coords: NDArray[np.float64],
-    alphas: NDArray[np.float64],
-    external_efield: NDArray[np.float64],
-) -> tp.Tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.float64]]:
+    coords: NDArray[np.floating],
+    alphas: NDArray[np.floating],
+    external_efield: NDArray[np.floating],
+) -> tp.Tuple[NDArray[np.floating], NDArray[np.floating], NDArray[np.floating]]:
     r"""This function takes a set of coordinates, polarizabilities and external
     efield vectors, and filters all of those where the coordinates are all
     zero, external efield and polarizabilities are all zero"""
@@ -123,7 +123,7 @@ def check_shapes_and_filter_dummy_entries(
     return coords, alphas, external_efield
 
 
-def znums_from_alphas(alphas: NDArray[np.float64]) -> NDArray[np.int64]:
+def znums_from_alphas(alphas: NDArray[np.floating]) -> NDArray[np.int64]:
     r"""Recover atomic numbers from the polarizabilities"""
     factor = 0.14818471
     znums_h: NDArray[np.int64] = np.where(

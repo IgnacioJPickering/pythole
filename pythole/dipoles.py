@@ -27,7 +27,7 @@ class EfieldKind(Enum):
 
 @dataclass
 class TholeDampingArgs:
-    alphas: NDArray[np.float64]  # Shape should be (C x A)
+    alphas: NDArray[np.floating]  # Shape should be (C x A)
     damp_factor: float = 1.0
 
 
@@ -35,9 +35,9 @@ class TholeDampingArgs:
 # The electric field due to the induced dipoles can be calculated
 # using the dipole field matrix
 def calc_pair_dipole_field_matrix(
-    coords: NDArray[np.float64],
+    coords: NDArray[np.floating],
     thole_damping_args: tp.Optional[TholeDampingArgs] = None,
-) -> NDArray[np.float64]:
+) -> NDArray[np.floating]:
     # TODO: could be improved to N (N - 1) / 2 instead of N^2 if needed
     # Input must be shape C x A x 3 (conformations x atoms x 3)
     #  Output is shape C x 3A x 3A if reshape, else C x A x A x 3 x 3
@@ -122,8 +122,8 @@ def calc_pair_dipole_field_matrix(
 
 
 def calc_dipoles(
-    eff_alpha_matrix: NDArray[np.float64], external_efield: NDArray[np.float64]
-) -> NDArray[np.float64]:
+    eff_alpha_matrix: NDArray[np.floating], external_efield: NDArray[np.floating]
+) -> NDArray[np.floating]:
     return np.matmul(
         eff_alpha_matrix,
         np.expand_dims(external_efield, -1),
@@ -131,8 +131,8 @@ def calc_dipoles(
 
 
 def calc_energy(
-    eff_alpha_matrix: NDArray[np.float64], external_efield: NDArray[np.float64]
-) -> NDArray[np.float64]:
+    eff_alpha_matrix: NDArray[np.floating], external_efield: NDArray[np.floating]
+) -> NDArray[np.floating]:
     # .reshape(external_efield.shape[0], -1, 3)
 
     dipoles = np.matmul(

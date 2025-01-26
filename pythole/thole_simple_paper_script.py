@@ -12,10 +12,10 @@ HARTREE_TO_KCALPERMOL = 27.211386024367243 * 1.6021766208e-19 * 6.022140857e23 /
 
 
 def check_shapes_and_filter_dummy_entries(
-    coords: NDArray[np.float64],
-    alphas: NDArray[np.float64],
-    external_efield: NDArray[np.float64],
-) -> tp.Tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.float64]]:
+    coords: NDArray[np.floating],
+    alphas: NDArray[np.floating],
+    external_efield: NDArray[np.floating],
+) -> tp.Tuple[NDArray[np.floating], NDArray[np.floating], NDArray[np.floating]]:
     r"""This function takes a set of coordinates, polarizabilities and external
     efield vectors, and filters all of those where the coordinates are all
     zero, external efield and polarizabilities are all zero"""
@@ -41,11 +41,11 @@ def check_shapes_and_filter_dummy_entries(
 
 
 def thole_energy(
-    coords: NDArray[np.float64],
-    alphas: NDArray[np.float64],
-    external_efield: NDArray[np.float64],
+    coords: NDArray[np.floating],
+    alphas: NDArray[np.floating],
+    external_efield: NDArray[np.floating],
     damp_factor: float,
-) -> NDArray[np.float64]:
+) -> NDArray[np.floating]:
 
     # Comment following lines if there are no dummy entries
     coords, alphas, external_efield = check_shapes_and_filter_dummy_entries(
@@ -71,8 +71,8 @@ def thole_energy(
 
 
 def repeat_invert_and_reshape_atomic_alphas_to_3a3a(
-    alphas: NDArray[np.float64],
-) -> NDArray[np.float64]:
+    alphas: NDArray[np.floating],
+) -> NDArray[np.floating]:
     r"""In general atomic polarizability matrices are approximated to be
     isotropic. This creates an array for 1 / alphas of shape 3a x 3a. Each set
     of 3 consecutive values in the diagonal should be equal The first dimension
@@ -81,7 +81,9 @@ def repeat_invert_and_reshape_atomic_alphas_to_3a3a(
     assert alphas.ndim == 2
     conf_num = alphas.shape[0]
     atoms_num = alphas.shape[1]
-    inv_alphas: NDArray[np.float64] = np.repeat((1 / alphas), 3, axis=-1).reshape(conf_num, 3 * atoms_num, 1)
+    inv_alphas: NDArray[np.floating] = np.repeat((1 / alphas), 3, axis=-1).reshape(
+        conf_num, 3 * atoms_num, 1
+    )
     inv_alphas = inv_alphas * np.expand_dims(np.eye(3 * atoms_num), 0)
     #  Sanity checks
     if inv_alphas.shape[1] > 2:
@@ -90,11 +92,11 @@ def repeat_invert_and_reshape_atomic_alphas_to_3a3a(
         assert inv_alphas[0, 1, 2] == 0
         assert inv_alphas[0, 2, 1] == 0
         assert inv_alphas[0, 1, 1] == inv_alphas[0, 2, 2]
-    assert inv_alphas.dtype == np.float64
+    assert inv_alphas.dtype == np.floating
     return inv_alphas  # type: ignore
 
 
-def reshape_dipole_field_to_3a3a(matrix: NDArray[np.float64]) -> NDArray[np.float64]:
+def reshape_dipole_field_to_3a3a(matrix: NDArray[np.floating]) -> NDArray[np.floating]:
     conf_num = matrix.shape[0]
     atoms_num = matrix.shape[1]
     # The diatomics clearly show no effect in the permutation
@@ -109,10 +111,10 @@ def reshape_dipole_field_to_3a3a(matrix: NDArray[np.float64]) -> NDArray[np.floa
 # The electric field due to the induced dipoles can be calculated
 # using the dipole field matrix
 def calc_pair_dipole_field_matrix(
-    coords: NDArray[np.float64],
-    alphas: NDArray[np.float64],
+    coords: NDArray[np.floating],
+    alphas: NDArray[np.floating],
     damp_factor: float,
-) -> NDArray[np.float64]:
+) -> NDArray[np.floating]:
     # TODO: could be improved to N (N - 1) / 2 instead of N^2 if needed
     # Input must be shape C x A x 3 (conformations x atoms x 3)
     #  Output is shape C x 3A x 3A if reshape, else C x A x A x 3 x 3
