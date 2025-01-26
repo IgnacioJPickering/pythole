@@ -81,7 +81,7 @@ def repeat_invert_and_reshape_atomic_alphas_to_3a3a(
     assert alphas.ndim == 2
     conf_num = alphas.shape[0]
     atoms_num = alphas.shape[1]
-    inv_alphas = np.repeat((1 / alphas), 3, axis=-1).reshape(conf_num, 3 * atoms_num, 1)
+    inv_alphas: NDArray[np.float64] = np.repeat((1 / alphas), 3, axis=-1).reshape(conf_num, 3 * atoms_num, 1)
     inv_alphas = inv_alphas * np.expand_dims(np.eye(3 * atoms_num), 0)
     #  Sanity checks
     if inv_alphas.shape[1] > 2:
@@ -94,7 +94,7 @@ def repeat_invert_and_reshape_atomic_alphas_to_3a3a(
     return inv_alphas  # type: ignore
 
 
-def reshape_dipole_field_to_3a3a(matrix: NDArray[tp.Any]) -> NDArray[tp.Any]:
+def reshape_dipole_field_to_3a3a(matrix: NDArray[np.float64]) -> NDArray[np.float64]:
     conf_num = matrix.shape[0]
     atoms_num = matrix.shape[1]
     # The diatomics clearly show no effect in the permutation
