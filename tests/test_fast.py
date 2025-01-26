@@ -1,2 +1,2 @@
 def test_import() -> None:
-    import pythole
+    import pythole  # noqa
