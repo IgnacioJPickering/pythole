@@ -7,6 +7,7 @@ factors: pow3_factor (lambda3) and pow5_factor (lambda5)
 The functions that actually modify the dipole field tensor are the
 derivatives of the potential, not the density or the potential itself.
 """
+
 from numpy.typing import NDArray
 import numpy as np
 
