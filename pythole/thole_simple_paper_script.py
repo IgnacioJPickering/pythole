@@ -214,4 +214,6 @@ if __name__ == "__main__":
         alphas = alphas * ANGSTROM_TO_BOHR**3
         external_efield = external_efield / ANGSTROM_TO_BOHR**2
 
-        pred_interaction_energy = thole_energy(coords, alphas, external_efield, damp_factor=0.3)
+        pred_interaction_energy = thole_energy(
+            coords, alphas, external_efield, damp_factor=0.3
+        )
