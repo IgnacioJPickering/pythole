@@ -196,18 +196,22 @@ def calc_pair_dipole_field_matrix(
 
 
 if __name__ == "__main__":
-    db = h5py.File(Path.home() / "IO/pythole-data/thole_data.h5")
+    db = h5py.File(Path.home() / "IO/pythole-data/thole_full_correct.h5")
     for k, conformations in db.items():
         coords = conformations["coordinates"][:]
-        alphas = conformations["polariz_free"][:]
-        external_efield = conformations["e_field"][:]
+        # "free" are the ones used in santi's model
+        # mbis are the dynamic ones
+        alphas = conformations["atomic_polarizabilities_mbis"][:]
+        external_efield = conformations["electric_field"][:]
+
+        target_interaction_energy = (
+            conformations["pbe.ee_qmmm_energy"][:]
+            - conformations["wb97x.mbis_me_qmmm_energy"][:]
+        )
 
         # Convert to Atomic Units
         coords = coords * ANGSTROM_TO_BOHR
         alphas = alphas * ANGSTROM_TO_BOHR**3
         external_efield = external_efield / ANGSTROM_TO_BOHR**2
 
-        energy = thole_energy(coords, alphas, external_efield, damp_factor=0.3)
-
-        # Convert to kcal/mol
-        energy = energy * HARTREE_TO_KCALPERMOL
+        pred_interaction_energy = thole_energy(coords, alphas, external_efield, damp_factor=0.3)
